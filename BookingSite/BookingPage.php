@@ -75,7 +75,7 @@ include '../helpers/authenticated.php'
                     <div class="col-sm-5 offset-1"> 
                         <div class="form-group">
                             <label for="number">Contact No.</label>
-                            <input type="text" name="number" id="number" class="form-control" required>
+                            <input type="text" name="number" id="number" class="form-control" required minlength="11" maxlength="11">
                         </div>
                     </div>
                     <div class="col-sm-5">

@@ -10,7 +10,7 @@ if(isset($_SESSION['access_token'])){
     $token = $_COOKIE['access_token'];
 
 }else{
-    header("Location: ../log-in.php");
+    header("Location: ../Customer-login/log-in.php");
     exit;
 }
 

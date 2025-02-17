@@ -2,8 +2,8 @@
 try {
     $host = "localhost";
     $username = "root"; // Replace with your actual MySQL username
-    $password = ""; // Replace with your actual MySQL password
-    $database = "accounts";
+    $password = "pass2024"; // Replace with your actual MySQL password
+    $database = "salon_db";
 
     $conn = new mysqli($host, $username, $password, $database);
 
