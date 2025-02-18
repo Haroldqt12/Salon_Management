@@ -1,3 +1,9 @@
+<?php
+include "../database/connectiondb.php"; 
+
+$sql = "SELECT * FROM customers ORDER BY date DESC"; 
+$result = $conn->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,14 +47,26 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary">Approve</button>
-                                </td>
+                            <?php
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<tr>
+                                        <td>" . htmlspecialchars($row['first_name']) . "</td>
+                                        <td>" . htmlspecialchars($row['last_name']) . "</td>
+                                        <td>" . htmlspecialchars($row['date']) . "</td>
+                                        <td>" . htmlspecialchars($row['contact_number']) . "</td>
+                                        <td>" . htmlspecialchars($row['Hair_History']) . "</td>
+                                        <td>
+                                            <button class='btn btn-sm btn-primary'>Approve</button>
+                                        </td>
+                                    </tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='6' class='text-center'>No records found</td></tr>";
+                            }
+                            ?>
+                                    
+                                
                             </tr>
                         </tbody>
                     </table>
