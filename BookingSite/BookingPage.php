@@ -56,7 +56,7 @@ include '../helpers/authenticated.php'
     <div class="col py-5">
         <div class="card p-4 shadow">
             <h3>BOOKING FORM</h3>
-            <form action="" method="POST"> <!-- Form inside the card -->
+            <form action="save_booking.php" method="POST"> <!-- Form inside the card -->
                 <div class="row mt-3">
                     <div class="col-sm-5 offset-1"> <!-- Adjusted column width -->
                         <div class="form-group">
@@ -94,7 +94,7 @@ include '../helpers/authenticated.php'
                     </div>
                 <div class="row mt-5">
                     <div class="col-sm-5 offset-1">
-                        <button class="btn btn-sm btn-primary">Confirm</button>
+                        <button class="btn btn-sm btn-primary" name="savebook">Confir m</button>
                     </div>
                 </div>
             </form>
