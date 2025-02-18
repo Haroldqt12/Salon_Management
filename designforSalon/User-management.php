@@ -51,7 +51,6 @@
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                
                 <!-- INTERFACE SECTION -->
                 <h4 class="lead">INTERFACE</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
@@ -62,18 +61,22 @@
                     </li>
                     <li class="nav-item">
                         <a href="User-management.php" class="nav-link px-0">
-                            <span class="d-none d-sm-inline">User Management</span>
+                            <span class="d-none d-sm-inline">Appointment</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="attendance.php" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle px-0 align-middle" href="#" id="attendanceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fs-4 bi-table"></i>
                             <span class="ms-1 d-none d-sm-inline">Attendance</span>
                         </a>
+                        <ul class="dropdown-menu" aria-labelledby="attendanceDropdown">
+                            <li><a class="dropdown-item" href="../AttendanceSheet/DailyAttendance.php">Daily Attendance</a></li>
+                            <li><a class="dropdown-item" href="../AttendanceSheet/AttendanceReport.php">Attendance Report</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="Employee.php" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> 
+                            <i class="fs-4 bi-table"></i>
                             <span class="ms-1 d-none d-sm-inline">Employee</span>
                         </a>
                     </li>
@@ -108,46 +111,53 @@
                         </a>
                     </li>
                 </ul>
-            </div> 
+            </div>
         </div>
 
-            <div class="col py-2">
-                <div class="card p-4 shadow">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>First name</th>
-                                    <th>Last name</th>
-                                    <th>Date</th>
-                                    <th>Contact</th>
-                                    <th>Services</th>
-                                    <th>Stylist Name</th>
-                                    <th>History</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Paula</td>
-                                    <td>Marundan</td>
-                                    <td>2025-02-08</td>
-                                    <td>09544329302</td>
-                                    <td>Brazillian wax</td>
-                                    <td>TIA ARCENA</td>
-                                    <td>HAHAHA</td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm">Approve</button>  
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+         <div class="col py-2">
+            <div class="container">
+                    <div class="row py-2">
+                        <div class="card">
+                            <h3 class="py-3 lead"><i class="fa-solid fa-user-pen mt-1">&nbsp;</i>Appointment List</h3>
+                            <div class="border border-dark"></div>
+                            <div class="col py-3">
+                                <div class="row justify-content-end">
+                                    <div class="col-sm-3">
+                                        <input type="search" id="search" name="search" class="form-control" placeholder="Search">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col py-3">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Services</th>
+                                                <th>Stylist Name</th>
+                                                <th>Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
                 </div>
             </div>
-            
-
-           
         </div>
     </div>
 </body>

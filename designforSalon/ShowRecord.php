@@ -49,7 +49,6 @@
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                
                 <!-- INTERFACE SECTION -->
                 <h4 class="lead">INTERFACE</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
@@ -60,18 +59,22 @@
                     </li>
                     <li class="nav-item">
                         <a href="User-management.php" class="nav-link px-0">
-                            <span class="d-none d-sm-inline">User Management</span>
+                            <span class="d-none d-sm-inline">Appointment</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="attendance.php" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle px-0 align-middle" href="#" id="attendanceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fs-4 bi-table"></i>
                             <span class="ms-1 d-none d-sm-inline">Attendance</span>
                         </a>
+                        <ul class="dropdown-menu" aria-labelledby="attendanceDropdown">
+                            <li><a class="dropdown-item" href="../AttendanceSheet/DailyAttendance.php">Daily Attendance</a></li>
+                            <li><a class="dropdown-item" href="../AttendanceSheet/AttendanceReport.php">Attendance Report</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="Employee.php" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> 
+                            <i class="fs-4 bi-table"></i>
                             <span class="ms-1 d-none d-sm-inline">Employee</span>
                         </a>
                     </li>
@@ -106,7 +109,7 @@
                         </a>
                     </li>
                 </ul>
-            </div> 
+            </div>
         </div>
             <div class="col py-2">
                 <div class="card p-4 shadow">

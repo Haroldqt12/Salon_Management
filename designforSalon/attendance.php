@@ -62,14 +62,18 @@
                     </li>
                     <li class="nav-item">
                         <a href="User-management.php" class="nav-link px-0">
-                            <span class="d-none d-sm-inline">User Management</span>
+                            <span class="d-none d-sm-inline">Appointment</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="attendance.php" class="nav-link px-0 align-middle">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle px-0 align-middle" id="attendanceDropdown" data-bs-toggle="dropdown" aria-expanded="true">
                             <i class="fs-4 bi-table"></i> 
                             <span class="ms-1 d-none d-sm-inline">Attendance</span>
                         </a>
+                        <ul class="dropdown-menu" aria-labelledby="attendanceDropdown">
+                            <li><a class="dropdown-item" href="../AttendanceSheet/DailyAttendance.php">Daily Attendance</a></li>
+                            <li><a class="dropdown-item" href="attendanceReport.php">Attendance Report</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="Employee.php" class="nav-link px-0 align-middle">
@@ -109,43 +113,7 @@
                     </li>
                 </ul>
             </div> 
-        </div>
-
-            <div class="col py-2">
-                <div class="card p-4 shadow">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>First name</th>
-                                    <th>Last name</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2</td>
-                                    <td>leo</td>
-                                    <td>Revita</td>
-                                    <td>2020-02-10</td>
-                                    <td class="text bg-green rounded-2 ">present</td>
-                                    <td>
-                                        <a href="../UpdateALL/EditAttendance.php"><button class="btn btn-warning btn-sm">Edit</button></a>  
-                                    </td>
-                                    
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
-
-           
+        </div>      
         </div>
     </div>
 </body>

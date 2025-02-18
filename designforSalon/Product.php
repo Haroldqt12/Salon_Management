@@ -49,7 +49,6 @@
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                
                 <!-- INTERFACE SECTION -->
                 <h4 class="lead">INTERFACE</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
@@ -60,18 +59,22 @@
                     </li>
                     <li class="nav-item">
                         <a href="User-management.php" class="nav-link px-0">
-                            <span class="d-none d-sm-inline">User Management</span>
+                            <span class="d-none d-sm-inline">Appointment</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="attendance.php" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle px-0 align-middle" href="#" id="attendanceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fs-4 bi-table"></i>
                             <span class="ms-1 d-none d-sm-inline">Attendance</span>
                         </a>
+                        <ul class="dropdown-menu" aria-labelledby="attendanceDropdown">
+                            <li><a class="dropdown-item" href="../AttendanceSheet/DailyAttendance.php">Daily Attendance</a></li>
+                            <li><a class="dropdown-item" href="../AttendanceSheet/AttendanceReport.php">Attendance Report</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="Employee.php" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> 
+                            <i class="fs-4 bi-table"></i>
                             <span class="ms-1 d-none d-sm-inline">Employee</span>
                         </a>
                     </li>
@@ -106,58 +109,116 @@
                         </a>
                     </li>
                 </ul>
-            </div> 
-        </div>
-            <div class="col py-4">
-                <div class="card p-4 shadow">
-                    <div class="col-sm-4 mb-3">
-                        <button class="btn btn-sm btn-dark">Add new Product</button>
-                    </div>
-                    <form action="">
-                        <div class="row mt-3">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="productName" class="form-label">Product name</label>
-                                    <input type="text" id="productName" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="Stock" class="form-label">Available Stock</label>
-                                    <input type="number" id="Stock" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="price" class="form-label">Price</label>
-                                    <input type="number" id="price" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="Brand" class="form-label">Brand</label>
-                                    <input type="text" id="Brand" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="Date" class="form-label">Date Added</label>
-                                    <input type="date" id="Date" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
+        <div class="col py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="card py-3">
+                        <h3 class="lead"> Product Management</h3>
+                        <div class="border border-dark"></div>
+                     <div class="col py-2">
+                  <div class="row justify-content-between">
+                      <div class="col-sm-4">
+                      <h3 class="">Add new Product</h3>
+                          </div>
+                          </div>
+                      </div>
+                      <form action="">
+                      <div class="col py-3">
+                          <div class="row mt-2 justify-content-between">
+                              <div class="col-sm-4">
+                                  <div class="form-group">
+                                      <label for="product">Product name</label>
+                                      <input type="text" class="form-control" id="product" name="product" placeholder="Product" required>
+                                  </div>
+                              </div>
+                              <div class="col-sm-4">
+                                      <label for="stocks">Available Stock</label>
+                                      <input type="number" class="form-control" id="stocks" name="stocks" placeholder="Stocks" required>
+                                  </div>
+                                  <div class="col-sm-4">
+                                      <label for="price">Price</label>
+                                      <input type="number" class="form-control" id="price" name="price" placeholder="price" required>
+                                  </div>
+                              </div>
+                              <div class="row mt-4">
+                                  <div class="col-sm-3">
+                                      <div class="form-group">
+                                          <label for="brand">Brand</label>
+                                          <input type="text" class="form-control" id="brand" name="brand" placeholder="Brand" required>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                      <label for="date">Date</label>
+                                      <input type="date" name="date" id="date" class="form-control" placeholder="Date" required>
+                                  </div>
+                                  
+                                  </div>
+                              </div>
+                                  <div class="row mt-5 justify-content-end">
+                                      <div class="col-sm-2">
+                                          <a href="../designforSalon/Employee.php" class="btn btn-sm btn-secondary">Clear Form</a>
+                                          <button class="btn btn-sm btn-primary">Confirm</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                      <div class="col py-3">
+                            <div class="container">
+                                <div class="row mt-2">
+                                    <div class="card py-3">
+                                        <h3 class="lead">Record</h3>
+                                        <div class="border border-dark"></div>
+                                        <div class="col py-2">
+                                            <div class="row mt-2 justify-content-end">
+                                                <div class="col-sm-4">
+                                                    <input type="search" class="form-control" placeholder="Search Employee">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col py-2">
+                                        <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Product name</th>
+                                                <th>Available Stock</th>
+                                                <th>Price</th>
+                                                <th>Brand</th>
+                                                <th>Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                                </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+                                                                <a href="../Edit/EditProduct.php" class="btn btn-secondary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                                <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+              </div> 
+            </div>
+         </div>  
+        </div>
     </div>
+</div>
 </body>
 </html>

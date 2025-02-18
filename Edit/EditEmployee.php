@@ -57,13 +57,13 @@
                 <h4 class="lead">INTERFACE</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a href="home.php" class="nav-link align-middle px-0">
+                        <a href="../designforSalon/home.php" class="nav-link align-middle px-0">
                             <span class="ms-1 d-none d-sm-inline">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="User-management.php" class="nav-link px-0">
-                            <span class="d-none d-sm-inline">Appointment</span>
+                        <a href="../designforSalon/User-management.php" class="nav-link px-0">
+                            <span class="d-none d-sm-inline">User Management</span>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
@@ -77,7 +77,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="Employee.php" class="nav-link px-0 align-middle">
+                        <a href="../designforSalon/Employee.php" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-table"></i>
                             <span class="ms-1 d-none d-sm-inline">Employee</span>
                         </a>
@@ -88,12 +88,12 @@
                 <h4 class="lead mt-3">PRODUCTS</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
                     <li class="nav-item">
-                        <a href="Product.php" class="nav-link align-middle px-0">
+                        <a href="../designforSalon/Product.php" class="nav-link align-middle px-0">
                             <span class="ms-1 d-none d-sm-inline">Products</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="Inventory.php" class="nav-link px-0">
+                        <a href="../designforSalon/Inventory.php" class="nav-link px-0">
                             <span class="d-none d-sm-inline">Daily Inventory</span>
                         </a>
                     </li>
@@ -103,12 +103,12 @@
                 <h4 class="lead mt-3">PAYMENT</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
                     <li class="nav-item">
-                        <a href="PaymentRec.php" class="nav-link align-middle px-0">
+                        <a href="../designforSalon/PaymentRec.php" class="nav-link align-middle px-0">
                             <span class="ms-1 d-none d-sm-inline">Payment Record</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="ShowRecord.php" class="nav-link px-0">
+                        <a href="../designforSalon/ShowRecord.php" class="nav-link px-0">
                             <span class="d-none d-sm-inline">Show All Records</span>
                         </a>
                     </li>
@@ -125,7 +125,7 @@
                     <div class="col py-2">
                         <div class="row justify-content-between">
                             <div class="col-sm-4">
-                            <h3 class="">Add new Employee</h3>
+                            <h3 class="">Edit Employee</h3>
                                 </div>
                                 </div>
                             </div>
@@ -189,69 +189,30 @@
                                             </div>
                                         </div> 
                                         <div class="row mt-5 justify-content-end">
-                                            <div class="col-sm-3">
-                                                <button class="btn btn-secondary btn-sm">Clear Form</button>
-                                                <button class="btn btn-sm btn-primary">Add new Employee</button>
+                                            <div class="col-sm-2">
+                                                <a href="../designforSalon/Employee.php" class="btn btn-sm btn-secondary">Cancel</a>
+                                                <button class="btn btn-sm btn-primary">Confirm</button>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                        <div class="col py-3">
-                            <div class="container">
-                                <div class="row mt-2">
-                                    <div class="card py-3">
-                                        <h3 class="lead">Record</h3>
-                                        <div class="border border-dark"></div>
-                                        <div class="col py-2">
-                                            <div class="row mt-2 justify-content-end">
-                                                <div class="col-sm-4">
-                                                    <input type="search" class="form-control" placeholder="Search Employee">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col py-2">
-                                        <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>First name</th>
-                                                <th>Last name</th>
-                                                <th>Contact</th>
-                                                <th>Age</th>
-                                                <th>Gender</th>
-                                                <th>Assigned/Job</th>
-                                                <th>Action</th>
-                                            </tr>
-                                                </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>
-                                                                <a href="../Edit/EditEmployee.php" class="btn btn-secondary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                                <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                                                            </td>
-                                                        </tr>
-                                                        
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>  
-    </div>
+            </div>  
+        </div>
+
+
+
+
+
+
+
+
+
+
+           
         </div>
     </div>
 </body>
