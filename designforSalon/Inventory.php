@@ -111,38 +111,58 @@
                 </ul>
             </div>
         </div>
-            <div class="col py-2">
-                <div class="card p-4 shadow">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Product_ID</th>
-                                    <th>Product Name</th>
-                                    <th>Available Stock</th>
-                                    <th>Brand</th>
-                                    <th>Date Added</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>023</td>
-                                    <td>Cream Silk Hair Rebound / Conditioner</td>
-                                    <td>12 pieces</td>
-                                    <td>Cream Silk</td>
-                                    <td>2025-02-10</td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm">Edit</button>  
-                                        <button class="btn btn-danger btn-sm">Delete</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+         <div class="col py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="card">
+                    <h3 class="lead py-3">INVENTORY</h3>
+                    <div class="border border-dark"></div>
+                    <div class="col py-5">
+                        <div class="row justify-content-between">
+                            <div class="col-sm-3">
+                                <i></i>
+                            </div>
+                            <div class="col-sm-3 mt-3">
+                                <input type="search" class="form-control" placeholder="Search Product">
+                            </div>
+
+                        </div>
+                        <div class="col py-2">
+                                <div class="row">
+                                    <div class="table">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Product Name</th>
+                                                            <th>Available Stocks</th>
+                                                            <th>Price</th>
+                                                            <th>Brand</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+                                                                <a href="../Edit/EditInventory.php"><button  class="btn btn-sm btn-secondary"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                                                                <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
+         </div>     
         </div>
     </div>
 </body>

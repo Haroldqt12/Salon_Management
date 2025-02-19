@@ -6,6 +6,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="../js/bootstrap.bundle.js"defer></script>
+    <script src="../js/bootstrap.min.js"></script>
+    
     <script src="../js/bootstrap.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -23,7 +25,8 @@
             <div class="row justify-content-start">
                 <div class="col-12">
                     <h2>
-                        SALON SERVICE SALES AND INVENTORY SYSTEM</h2>
+                        SALON SERVICE SALES AND INVENTORY SYSTEM
+                        </h2>
                 </div>
             </div>
             <div class="row justify-content-end">
@@ -54,13 +57,13 @@
                 <h4 class="lead">INTERFACE</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a href="home.php" class="nav-link align-middle px-0">
+                        <a href="../designforSalon/home.php" class="nav-link align-middle px-0">
                             <span class="ms-1 d-none d-sm-inline">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="User-management.php" class="av-link px-0">
-                            <span class="d-none d-sm-inline">Appointment</span>
+                        <a href="../designforSalon/User-management.php" class="nav-link px-0">
+                            <span class="d-none d-sm-inline">User Management</span>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
@@ -74,7 +77,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="Employee.php" class="nav-link px-0 align-middle">
+                        <a href="../designforSalon/Employee.php" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-table"></i>
                             <span class="ms-1 d-none d-sm-inline">Employee</span>
                         </a>
@@ -85,12 +88,12 @@
                 <h4 class="lead mt-3">PRODUCTS</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
                     <li class="nav-item">
-                        <a href="Product.php" class="nav-link align-middle px-0">
+                        <a href="../designforSalon/Product.php" class="nav-link align-middle px-0">
                             <span class="ms-1 d-none d-sm-inline">Products</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="Inventory.php" class="nav-link px-0">
+                        <a href="../designforSalon/Inventory.php" class="nav-link px-0">
                             <span class="d-none d-sm-inline">Daily Inventory</span>
                         </a>
                     </li>
@@ -100,42 +103,74 @@
                 <h4 class="lead mt-3">PAYMENT</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
                     <li class="nav-item">
-                        <a href="PaymentRec.php" class="nav-link align-middle px-0">
+                        <a href="../designforSalon/PaymentRec.php" class="nav-link align-middle px-0">
                             <span class="ms-1 d-none d-sm-inline">Payment Record</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="ShowRecord.php" class="nav-link px-0">
+                        <a href="../designforSalon/ShowRecord.php" class="nav-link px-0">
                             <span class="d-none d-sm-inline">Show All Records</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
-            <div class="col py-3">
-                <div class="container mt-3 mb-5">
-                    <div class="row text-center">
-                        <div class="col-md-3 mt-5">
-                            <div class="card p-3">
-                                <i class="fa-solid fa-user fa-6x"></i>
-                                <a href="../AddEmployee/AddnewEmployee.php"><p>EMPLOYEE</p></a>
+
+        <div class="col py-3">
+          <div class="container">
+            <div class="row">
+                <div class="card py-3">
+                    <h3 class="lead">Stocks of Product</h3>
+                    <div class="border border-dark"></div>
+                    <div class="col py-2">
+                        <div class="row justify-content-between">
+                            <div class="col-sm-4">
+                            <h3 class="">Edit Product Stocks</h3>
+                                </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 mt-5">
-                            <div class="card p-3">
-                                <i class="fa-solid fa-circle-user fa-6x"></i>
-                                <a href="../UserApproval/viewUsers.php"><p>USERS</p></a>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mt-5">
-                            <div class="card p-3">
-                                <i class="fa-solid fa-cart-shopping fa-6x"></i>
-                                <a href=""><p>PRODUCT-SALES</p></a>
+                            <form action="">
+                            <div class="col py-3">
+                                <div class="row mt-2 justify-content-between">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="product">Product name</label>
+                                            <input type="text" class="form-control" id="product" name="product" placeholder="Product name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                            <label for="stocks">Available Stocks</label>
+                                            <input type="number" class="form-control" id="stocks" name="stocks" placeholder="Available Stocks" required>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="price">Price</label>
+                                            <input type="number" class="form-control" id="price" name="price" placeholder="Price" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="brand">Brand</label>
+                                                <input type="text" class="form-control" id="brand" name="brand" placeholder="Brand" required>
+                                            </div>
+                                        </div>                                   
+                                    </div>
+                                    </div>
+                                        <div class="row mt-5 justify-content-end">
+                                            <div class="col-sm-2">
+                                                <a href="../designforSalon/Inventory.php" class="btn btn-sm btn-secondary">Cancel</a>
+                                                <button class="btn btn-sm btn-primary">Confirm</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  
+        </div>
+           
         </div>
     </div>
 </body>
