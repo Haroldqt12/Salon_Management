@@ -1,3 +1,38 @@
+<?php
+include "../database/connectiondb.php";
+
+$sql = "SELECT * FROM product"; 
+$result = $conn->query($sql);
+
+if (!$result) {
+    die("Query failed: " . $conn->error); // Debugging line to check errors
+}
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
+    if (!empty($_POST['stocks']) && !empty($_POST['product_date']) && !empty($_POST['product_id'])) {
+        $stocks = intval($_POST['stocks']);
+        $date = $_POST['product_date'];
+        $id = intval($_POST['product_id']);
+
+        $updateStmt = $conn->prepare("UPDATE product SET stocks = ?, product_date = ? WHERE productId = ?");
+        $updateStmt->bind_param('isi', $stocks, $date, $id);
+
+        if ($updateStmt->execute()) {
+            echo "<script>alert('Product updated successfully!'); window.location.href='Product.php';</script>";
+        } else {
+            echo "Error updating record: " . $updateStmt->error;
+        }
+
+        $updateStmt->close();
+    } else {
+        echo "<script>alert('Invalid input. Please provide all required fields.');</script>";
+    }
+}
+
+$conn->close();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +42,8 @@
     <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="../js/bootstrap.bundle.js" defer></script>
     <script src="../js/bootstrap.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .dropdown-menu .dropdown-item:hover {
@@ -15,6 +52,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
     </style>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-secondary">
@@ -124,9 +162,9 @@
                           </div>
                           </div>
                       </div>
-                      <form action="">
+                      <form action="../Handler_connection/AddProduct.php" method="POST">
                       <div class="col py-3">
-                          <div class="row mt-2 justify-content-between">
+                          <div class="row mt-2">
                               <div class="col-sm-4">
                                   <div class="form-group">
                                       <label for="product">Product name</label>
@@ -137,29 +175,21 @@
                                       <label for="stocks">Available Stock</label>
                                       <input type="number" class="form-control" id="stocks" name="stocks" placeholder="Stocks" required>
                                   </div>
-                                  <div class="col-sm-4">
-                                      <label for="price">Price</label>
-                                      <input type="number" class="form-control" id="price" name="price" placeholder="price" required>
-                                  </div>
-                              </div>
-                              <div class="row mt-4">
                                   <div class="col-sm-3">
-                                      <div class="form-group">
                                           <label for="brand">Brand</label>
                                           <input type="text" class="form-control" id="brand" name="brand" placeholder="Brand" required>
-                                      </div>
-                                  </div>
-                                  <div class="col-sm-4">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                <div class="col-sm-4">
                                       <label for="date">Date</label>
                                       <input type="date" name="date" id="date" class="form-control" placeholder="Date" required>
                                   </div>
-                                  
-                                  </div>
+                                </div>
                               </div>
                                   <div class="row mt-5 justify-content-end">
-                                      <div class="col-sm-2">
-                                          <a href="../designforSalon/Employee.php" class="btn btn-sm btn-secondary">Clear Form</a>
-                                          <button class="btn btn-sm btn-primary">Confirm</button>
+                                      <div class="col-sm-2" >
+                                          <button class="btn btn-sm btn-primary w-100">Confirm</button>
                                       </div>
                                   </div>
                               </div>
@@ -172,11 +202,14 @@
                                         <h3 class="lead">Record</h3>
                                         <div class="border border-dark"></div>
                                         <div class="col py-2">
-                                            <div class="row mt-2 justify-content-end">
-                                                <div class="col-sm-4">
-                                                    <input type="search" class="form-control" placeholder="Search Employee">
-                                                </div>
+                                        <div class="row mt-2 justify-content-end">
+                                            <div class="col-sm-4">
+                                                <form method="POST" class="d-flex">
+                                                    <input type="text" id="search" name="search" class="form-control" placeholder="Search Employee">
+                                                    <button class="btn btn-sm btn-primary ms-2" name="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                                </form>
                                             </div>
+                                        </div>
                                         </div>
                                         <div class="col py-2">
                                         <div class="table-responsive">
@@ -185,30 +218,61 @@
                                             <tr>
                                                 <th>Product name</th>
                                                 <th>Available Stock</th>
-                                                <th>Price</th>
                                                 <th>Brand</th>
                                                 <th>Date</th>
                                                 <th>Action</th>
                                             </tr>
                                                 </thead>
-                                                    <tbody>
+                                                <tbody>
+                                                    <?php while ($row = $result->fetch_assoc()) { ?>
                                                         <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
+                                                            <td><?= htmlspecialchars($row['productname']); ?></td>
+                                                            <td><?= htmlspecialchars($row['stocks']); ?></td>
+                                                            <td><?= htmlspecialchars($row['brand']); ?></td>
+                                                            <td><?= htmlspecialchars($row['product_date']); ?></td>
                                                             <td>
-                                                                <a href="../Edit/EditProduct.php" class="btn btn-secondary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                                <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                                                                <button class="btn btn-secondary btn-sm edit-btn" data-bs-toggle="modal" data-bs-target="#editModal"
+                                                                    data-id="<?= $row['productId']; ?>"
+                                                                    data-stocks="<?= $row['stocks']; ?>"
+                                                                    data-date="<?= $row['product_date']; ?>">
+                                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                                </button>
+                                                                <a href="../Handler_connection/DeleteProduct.php?id=<?php echo $row['productId']; ?>" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                                             </td>
                                                         </tr>
-                                                        
-                                                    </tbody>
-                                                </table>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Update Product Modal -->
+                                <form method="POST">
+                                    <div class="modal fade" id="editModal" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Update Stocks</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <label for="stocks">Stocks:</label>
+                                                    <input type="number" id="stocks" name="stocks" class="form-control" required>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <label for="date">Date Updating:</label>
+                                                    <input type="date" id="date" name="product_date" class="form-control" required>
+                                                </div>
+                                                <input type="hidden" id="product_id" name="product_id">
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" name="update" class="btn btn-primary">Save changes</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                </form>
 
                                 </div>
                             </div>
@@ -220,5 +284,16 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".edit-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                document.getElementById("stocks").value = this.getAttribute("data-stocks");
+                document.getElementById("date").value = this.getAttribute("data-date");
+                document.getElementById("product_id").value = this.getAttribute("data-id");
+            });
+        });
+    });
+    </script>
 </body>
 </html>

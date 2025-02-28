@@ -1,3 +1,21 @@
+<?php
+include "../database/connectiondb.php";
+
+$sql = "SELECT * FROM employees";
+$result = $conn->query($sql);
+
+//search a record of employee 
+if (isset($_POST['submit'])) {
+    $search = $conn->real_escape_string($_POST['search']); 
+    $sql = "SELECT * FROM employees WHERE first_name LIKE '%$search%' OR last_name LIKE '%$search%' OR employee_id LIKE '%$search%' OR street LIKE '%$search%' OR city LIKE '%$search%' OR role LIKE '%$search%'";
+    $result = $conn->query($sql);
+} else {
+    $sql = "SELECT * FROM employees"; 
+    $result = $conn->query($sql);
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,7 +147,7 @@
                                 </div>
                                 </div>
                             </div>
-                            <form action="">
+                            <form action="../Handler_connection/AddEmployee.php" method="POST">
                             <div class="col py-3">
                                 <div class="row mt-2 justify-content-between">
                                     <div class="col-sm-4">
@@ -144,7 +162,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="contact">Contact No.</label>
-                                            <input type="number" class="form-control" id="contact" name="contact" placeholder="Contact" required>
+                                            <input type="text" class="form-control" id="contact" name="contact" placeholder="Contact" required>
                                         </div>
                                     </div>
                                     <div class="row mt-4 justify-content-between">
@@ -154,12 +172,15 @@
                                                 <input type="number" class="form-control" id="age" name="age" placeholder="Age" required>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <label for="address">Address</label>
-                                            <input type="text" name="address" id="address" class="form-control" placeholder="Address" required>
+                                        <div class="col-sm-3">
+                                            <label for="street">Street</label>
+                                            <input type="text" name="street" id="street" class="form-control" placeholder="Street" required>
                                         </div>
-                                        
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
+                                            <label for="city">City</label>
+                                            <input type="text" name="city" id="city" class="form-control" placeholder="City" required>
+                                        </div>
+                                        <div class="col-sm-3">
                                         <label class="mt-2">Gender</label>
                                                 <div class="form-group">
                                                     <div class="form-check form-check-inline">
@@ -178,12 +199,12 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                 <label for="job" class="form-label">Assigned/Job</label>
-                                                    <select id="job" class="form-control">
+                                                    <select id="job" name="role" class="form-control">
                                                         <option value="" disabled selected>Select Job</option>
-                                                        <option value="developer">Hair Stylist</option>
-                                                        <option value="designer">Cashier</option>
-                                                        <option value="manager">Utilities</option>
-                                                        <option value="manager">Assistant</option>
+                                                        <option value="HairStylist">Hair Stylist</option>
+                                                        <option value="Cashier">Cashier</option>
+                                                        <option value="Utilities">Utilities</option>
+                                                        <option value="Assistant">Assistant</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -204,12 +225,16 @@
                                         <h3 class="lead">Record</h3>
                                         <div class="border border-dark"></div>
                                         <div class="col py-2">
-                                            <div class="row mt-2 justify-content-end">
-                                                <div class="col-sm-4">
-                                                    <input type="search" class="form-control" placeholder="Search Employee">
-                                                </div>
+                                        <div class="row mt-2 justify-content-end">
+                                            <div class="col-sm-4">
+                                                <form method="POST" class="d-flex">
+                                                    <input type="text" id="search" name="search" class="form-control" placeholder="Search Employee">
+                                                    <button class="btn btn-sm btn-primary ms-2" name="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                                </form>
                                             </div>
                                         </div>
+                                        </div>
+                                        <form action="../Handler_connection/searchEmployee.php" method="POST">
                                         <div class="col py-2">
                                         <div class="table-responsive">
                                         <table class="table table-bordered">
@@ -219,25 +244,31 @@
                                                 <th>Last name</th>
                                                 <th>Contact</th>
                                                 <th>Age</th>
+                                                <th>Street</th>
+                                                <th>City</th>
                                                 <th>Gender</th>
                                                 <th>Assigned/Job</th>
                                                 <th>Action</th>
                                             </tr>
                                                 </thead>
                                                     <tbody>
+                                                        <?php while($row = $result->fetch_assoc()): ?>
                                                         <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
+                                                            <td><?php echo htmlspecialchars($row['first_name']); ?></td>
+                                                            <td><?php echo htmlspecialchars($row['last_name']); ?></td>
+                                                            <td><?php echo htmlspecialchars($row['contact_number']); ?></td>
+                                                            <td><?php echo htmlspecialchars($row['age']); ?></td>
+                                                            <td><?php echo htmlspecialchars($row['street']); ?></td>
+                                                            <td><?php echo htmlspecialchars($row['city']); ?></td>
+                                                            <td><?php echo htmlspecialchars($row['gender']); ?></td>
+                                                            <td><?php echo htmlspecialchars($row['role']); ?></td>
                                                             <td>
-                                                                <a href="../Edit/EditEmployee.php" class="btn btn-secondary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                                <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                                                                <a href="../Edit/EditEmployee.php?id=<?php echo $row['employee_id']; ?>" class="btn btn-secondary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                                <a href="../Handler_connection/deleteEmployee.php?id=<?php echo $row['employee_id']; ?>" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                                                
                                                             </td>
                                                         </tr>
-                                                        
+                                                        <?php endwhile; ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -256,3 +287,7 @@
     </div>
 </body>
 </html>
+
+<?php
+$conn->close();
+?>

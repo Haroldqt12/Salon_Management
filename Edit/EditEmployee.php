@@ -1,3 +1,57 @@
+<?php
+include "../database/connectiondb.php";
+
+
+try {
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $stmt = $conn->prepare("SELECT * FROM employees WHERE employee_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result && $result->num_rows > 0) {
+            $do = $result->fetch_assoc();
+        } else {
+            die("Record not found");
+        }
+        $stmt->close();
+        
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $firstname = $_POST['firstname'];
+            $lastname = $_POST['lastname'];
+            $contact = $_POST['contact'];
+            $age = $_POST['age'];
+            $street = $_POST['street'];
+            $city = $_POST['city'];
+            $gender = $_POST['gender'];
+            $role = $_POST['role'];
+
+            $updateStmt = $conn->prepare("UPDATE employees SET first_name = ?, last_name = ?, role = ?, contact_number = ?, gender = ?, age = ?, street = ?, city = ? WHERE employee_id = ?");
+            if (!$updateStmt) {
+                die("SQL Error: " . $conn->error);
+            }
+            $updateStmt->bind_param("ssssssssi", $firstname, $lastname, $role, $contact, $gender, $age, $street, $city, $id);
+
+            if ($updateStmt->execute()) {
+                header("Location: ../designforSalon/Employee.php");
+                exit;
+            } else {
+                echo "Update failed: " . $updateStmt->error;
+            }
+        }
+    } else {
+        die("ID not provided.");
+    }
+} catch (\Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,65 +183,70 @@
                                 </div>
                                 </div>
                             </div>
-                            <form action="">
+                            <form method="POST"> 
                             <div class="col py-3">
                                 <div class="row mt-2 justify-content-between">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="firstname">First name</label>
-                                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First name" required>
+                                            <input type="text" class="form-control" id="firstname" name="firstname" value="<?= isset($do['firstname']) ? htmlspecialchars($do['firstname']) : ''; ?>" placeholder="Firstname" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                             <label for="lastname">Last name</label>
-                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last name" required>
+                                            <input type="text" class="form-control" id="lastname" name="lastname" value="<?= isset($do['lastname']) ? htmlspecialchars($do['lastname']) : ''; ?>" placeholder="Lastname" required>
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="contact">Contact No.</label>
-                                            <input type="number" class="form-control" id="contact" name="contact" placeholder="Contact" required>
+                                            <input type="number" class="form-control" id="contact" name="contact" value="<?= isset($do['contact']) ? htmlspecialchars($do['contact']) : ''; ?>" placeholder="Contact" required>
                                         </div>
                                     </div>
                                     <div class="row mt-4 justify-content-between">
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="age">Age</label>
-                                                <input type="number" class="form-control" id="age" name="age" placeholder="Age" required>
+                                                <input type="number" class="form-control" id="age" name="age" value="<?= $do['age'] ?>" placeholder="Age" required>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <label for="address">Address</label>
-                                            <input type="text" name="address" id="address" class="form-control" placeholder="Address" required>
+                                        <div class="col-sm-3">
+                                            <label for="street">Street</label>
+                                            <input type="text" name="street" id="street" class="form-control" value="<?= $do['street'] ?>" placeholder="Street" required>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label for="city">City</label>
+                                            <input type="text" name="city" id="city" class="form-control" value="<?= $do['city'] ?>" placeholder="City" required>
                                         </div>
                                         
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                         <label class="mt-2">Gender</label>
                                                 <div class="form-group">
                                                     <div class="form-check form-check-inline">
-                                                        <input type="radio" class="form-check-input" name="gender" id="male" value="male">
+                                                        <input type="radio" class="form-check-input" name="gender" id="male" value="male" <?= ($do['gender'] == 'male') ? 'checked' : '' ?>>
                                                         <label for="male" class="form-check-label">Male</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input type="radio" class="form-check-input" name="gender" id="female" value="female">
+                                                        <input type="radio" class="form-check-input" name="gender" id="female" value="female" <?= ($do['gender'] == 'female') ? 'checked' : '' ?>>
                                                         <label for="female" class="form-check-label">Female</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-4">
+                                        <div class="row mt-4">
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                <label for="job" class="form-label">Assigned/Job</label>
-                                                    <select id="job" class="form-control">
-                                                        <option value="" disabled selected>Select Job</option>
-                                                        <option value="developer">Hair Stylist</option>
-                                                        <option value="designer">Cashier</option>
-                                                        <option value="manager">Utilities</option>
-                                                        <option value="manager">Assistant</option>
+                                                    <label for="job" class="form-label">Assigned/Job</label>
+                                                    <select id="job" name="role" class="form-control" required>
+                                                        <option value="" disabled <?= empty($do['role']) ? 'selected' : '' ?>>Select Job</option>
+                                                        <option value="Hair Stylist" <?= (isset($do['role']) && $do['role'] == 'Hair Stylist') ? 'selected' : '' ?>>Hair Stylist</option>
+                                                        <option value="Cashier" <?= (isset($do['role']) && $do['role'] == 'Cashier') ? 'selected' : '' ?>>Cashier</option>
+                                                        <option value="Utilities" <?= (isset($do['role']) && $do['role'] == 'Utilities') ? 'selected' : '' ?>>Utilities</option>
+                                                        <option value="Assistant" <?= (isset($do['role']) && $do['role'] == 'Assistant') ? 'selected' : '' ?>>Assistant</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div> 
+                                        </div>
+
                                         <div class="row mt-5 justify-content-end">
                                             <div class="col-sm-2">
                                                 <a href="../designforSalon/Employee.php" class="btn btn-sm btn-secondary">Cancel</a>

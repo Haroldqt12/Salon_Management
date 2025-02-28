@@ -122,26 +122,25 @@
                                 <h3 class="py-2">Attendance Report</h3>
                                 <div class="border border-black">
                                 </div>
-
+                                    <form method="POST">
                                     <div class="col py-2">
                                         <div class="row">
                                             <div class="col-sm-4">
                                             <label for="employee" class="form-label mt-3">Employee</label>
-                                                <select name="employee" id="employee" class="form-control mt-2">
-                                                    <option value="all">All Employee</option>
-                                                    <option value="hairstyle">Hairstylist</option>
-                                                    <option value="utilities">Utilities</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <label class="mt-3">Month</label>
-                                                <input type="month" class="form-control mt-2">
+                                            <select name="employee" id="employee" class="form-control mt-2">
+                                                <option name="all" value="all">All Employee</option>
+                                                <option name="HairStylist" value="HairStylist">Hair Stylist</option>
+                                                <option name="Cashier" value="Cashier">Cashier</option>
+                                                <option name="Utilities" value="Utilities">Utilities</option>
+                                                <option name="Assistant" value="Assistant">Assistant</option>
+                                            </select>
                                             </div>
                                             <div class="col-sm-2 mt-5">
-                                                <button class="btn btn-sm btn-success">Show report</button>
+                                                <button class="btn btn-sm btn-success mt-2" name="submit" id="submit">Show report</button>
                                             </div>
                                         </div>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -158,48 +157,45 @@
                                                         <div class="col-sm-4">
                                                         </div>
                                                         <div class="col-sm-4">
-                                                            <input type="search" name="search" id="search" class="form-control border-dark" placeholder="Search Employee">
-                                                        </div>
+                                                        <form method="POST" class="d-flex">
+                                                            <input type="text" id="search" name="search" class="form-control" placeholder="Search Employee">
+                                                            <button class="btn btn-sm btn-primary ms-2" name="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                                        </form>
+                                                    </div>
                                                     </div>
                                                 </div>
+                                                <form action="" method="POST">
                                                 <div class="col py-2">
                                                         <div class="table-responsive">
                                                           <table class="table table-bordered table-sm">
                                                             <thead class="table">
                                                               <tr>
-                                                                <th>ID</th>
                                                                 <th>Assigned/Job</th>
                                                                 <th>First name</th>
-                                                                <th>Summary</th>
-                                                                <!-- Loop to generate day numbers -->
-                                                                <?php for ($i = 1; $i <= 31; $i++) { ?>
-                                                                    <th><?php echo $i; ?></th>
-                                                                <?php } ?>
+                                                                <th>Date</th>
+                                                                <th>Status</th>
                                                               </tr>
                                                             </thead>
                                                             <tbody>
+                                                                <?php while($row->fetch_assoc()) ?>
                                                               <tr>
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td></td>
-                                                                <!-- Empty cells for days -->
-                                                                <?php for ($i = 1; $i <= 31; $i++) { ?>
-                                                                  <td></td>
-                                                                <?php } ?>
                                                               </tr>
                                                             </tbody>
                                                           </table>
                                                         </div>
-                                                        </div>
-
+                                                    </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         </div>
-                </div>
-        </div>
-    </div>
+                    </div>
 </body>
 </html>

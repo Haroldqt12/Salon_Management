@@ -1,3 +1,37 @@
+<?php
+include "../database/connectiondb.php";
+
+$search = "";
+$employee_role = "all";
+
+
+if (isset($_POST['submit'])) {
+    $employee_role = $_POST['employee']; // Selected employee role
+}
+
+if (isset($_POST['search_btn'])) {
+    $search = $conn->real_escape_string($_POST['search']); // Get search input safely
+}
+
+// Base query to fetch employees
+$sql = "SELECT * FROM employees WHERE 1";
+
+// Apply role filter
+if ($employee_role !== "all") {
+    $sql .= " AND role = '$employee_role'";
+}
+
+// Apply search filter
+if (!empty($search)) {
+    $sql .= " AND (first_name LIKE '%$search%' OR last_name LIKE '%$search%' OR role LIKE '%$search%')";
+}
+
+$result = $conn->query($sql);
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,25 +155,25 @@
                             <h3 class="py-2">Daily Attendance</h3>
                             <div class="border border-black">
                             </div>
+                            <form method="POST">
                             <div class="col py-2">
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <label for="employee" class="mt-3">Employee</label>
                                         <select name="employee" id="employee" class="form-control mt-2">
-                                            <option value="all">All Employee</option>
-                                            <option value="hairstyle">Hairstylist</option>
-                                            <option value="utilities">Utilities</option>
+                                            <option name="all" value="all">All Employee</option>
+                                            <option name="HairStylist" value="HairStylist">Hair Stylist</option>
+                                            <option name="Cashier" value="Cashier">Cashier</option>
+                                            <option name="Utilities" value="Utilities">Utilities</option>
+                                            <option name="Assistant" value="Assistant">Assistant</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="date" class="mt-3">Date</label>
-                                        <input type="date" class="form-control mt-2">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <button class="btn btn-sm btn-success mt-5">Get Employee List</button>
+                                        <button class="btn btn-sm btn-success mt-5" name="submit" >Get Employee List</button>
                                     </div>
                                 </div>
                             </div>
+                            </form>
                         </div>
 
                     </div>
@@ -155,71 +189,65 @@
                                         <div class="col-sm-4">
                                             <p>Employee Data:</p>
                                         </div>
-                                        <div class="col-sm-3">
-                                            <input type="search" name="search" id="search" class="form-control" placeholder="Search">
+                                    </div>
+                                </div>
+                                <form action="../Handler_connection/AttendanceRecord.php" method="POST">
+                                <div class="col py-2">
+                                    <div class="table">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Assigned/Job</th>
+                                                        <th>First name</th>
+                                                        <th>Date</th>
+                                                        <th>In Time</th>
+                                                        <th>Out Time</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php while ($row = $result->fetch_assoc()) { ?>
+                                                    <tr>
+                                                        <td><?php echo $row['role']; ?></td>
+                                                        <td><?php echo $row['first_name'];?></td>
+                                                        <td>
+                                                            <input type="date" name="date[]" class="form-control" required>
+                                                        </td>
+                                                        <td>
+                                                            <input type="time" name="TimeIn[]" class="form-control">
+                                                        </td>
+                                                        <td>
+                                                            <input type="time" name="TimeOut[]" class="form-control">
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control no-border" name="attend[]">
+                                                                <option>Present</option>
+                                                                <option>Absent</option>
+                                                                <option>Late Arrival</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <a href="" class="btn btn-sm btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                            <a href="../Handler_connection/deleteAttendance.php?id=<?php echo $row['employee_id']; ?>" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col py-2">
-    <div class="table">
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Assigned/Job</th>
-                        <th>First name</th>
-                        <th>Attendance Type</th>
-                        <th>Date</th>
-                        <th>In Time</th>
-                        <th>Out Time</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <input type="date" class="no-border">
-                        </td>
-                        <td>
-                            <input type="time" class="no-border">
-                        </td>
-                        <td>
-                            <input type="time" class="no-border">
-                        </td>
-                        <td>
-                            <select class="form-control no-border">
-                                <option value="present">Present</option>
-                                <option value="absent">Absent</option>
-                                <option value="late">Late Arrival</option>
-                            </select>
-                        </td>
-                        <td>
-                            <a href="" class="btn btn-sm btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
-                        </td>
-                        
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<div class="col py-3">
-    <div class="row justify-content-end">
-        <div class="col-sm-1">
-            <button class="btn btn-sm btn-success">Update</button>
-        </div>
-    </div>
-
-</div>
-
-                            </div>
-                            
+                                    <div class="col py-3">
+                                        <div class="row justify-content-end">
+                                            <div class="col-sm-1">
+                                                <button class="btn btn-sm btn-success">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>                          
                         </div>
                     </div>
                 </div>
