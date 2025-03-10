@@ -1,3 +1,25 @@
+<?php
+include "../database/connectiondb.php";
+include "../helpers/authenticated.php"; // Add authentication
+
+if ($_SESSION['user_role'] !== 'admin') {
+    header("Location: ../BookingSite/HomeBooking.php");
+    exit;
+}
+
+$sql = "SELECT COUNT(*) AS total_employees FROM employees";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$totalEmployees = $row['total_employees']; 
+
+$sql = "SELECT COUNT(*) AS total_product FROM product";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$totalProduct = $row['total_product'];
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +38,32 @@
         color: white;
         transition: background-color 0.3s ease, color 0.3s ease;
     }
+
+    .bg-img{
+        background-image: url('salonbackground.jpg'); 
+    background-size: cover;  /* Ensures the image covers the entire div */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling */
+    height: 100vh; /* Optional: Makes it full screen height */
+    }
+    .card{
+        background: rgba(255, 255, 255, 0.16);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3.4px);
+    -webkit-backdrop-filter: blur(3.4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    a{
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .sidebar .nav-link, .sidebar h4 {
+    color: white !important;  
+    }
 </style>
 <body>
     <nav class="navbar navbar-expand-lg bg-secondary">
@@ -28,15 +76,12 @@
             </div>
             <div class="row justify-content-end">
                 <div class="btn-group">
-                    <i class="fa-solid fa-user fa-3x"></i><button type="button" class="btn btn-secondary dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">&nbsp;
+                    <button type="button" class="btn btn-secondary dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">&nbsp;
                         ADMIN
                     </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>
-                                <button class="dropdown-item" type="button">Settings</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button">LOG-OUT</button>
+                               <a href="../Handler_connection/Log-out.php"> <button class="dropdown-item" type="button">LOG-OUT</button></a>
                             </li>
                         </ul>
                 </div>
@@ -48,52 +93,59 @@
     
     <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark sidebar">
+    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-dark min-vh-100">
                 <!-- INTERFACE SECTION -->
                 <h4 class="lead">INTERFACE</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="home.php" class="nav-link align-middle px-0">
-                            <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                            <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-house px-2 fa-2x"></i>&nbspDashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="User-management.php" class="av-link px-0">
-                            <span class="d-none d-sm-inline">Appointment</span>
+                    <li class="nav-item mt-2">
+                        <a href="User-management.php" class="nav-link align-middle px-0">
+                            <span class="d-none d-sm-inline"><i class="fa-solid fa-calendar-check px-2 fa-2x"></i>&nbspAppointment</span>
                         </a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown mt-2">
                         <a class="nav-link dropdown-toggle px-0 align-middle" href="#" id="attendanceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fs-4 bi-table"></i>
-                            <span class="ms-1 d-none d-sm-inline">Attendance</span>
+                            <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-clipboard-user px-2 fa-2x"></i>&nbspAttendance</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="attendanceDropdown">
                             <li><a class="dropdown-item" href="../AttendanceSheet/DailyAttendance.php">Daily Attendance</a></li>
                             <li><a class="dropdown-item" href="../AttendanceSheet/AttendanceReport.php">Attendance Report</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="Employee.php" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-table"></i>
-                            <span class="ms-1 d-none d-sm-inline">Employee</span>
+                            <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-user-tie px-2 fa-2x"></i>&nbspEmployee</span>
                         </a>
                     </li>
                 </ul>
 
                 <!-- PRODUCTS SECTION -->
-                <h4 class="lead mt-3">PRODUCTS</h4>
+                <h4 class="lead">PRODUCTS</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="Product.php" class="nav-link align-middle px-0">
-                            <span class="ms-1 d-none d-sm-inline">Products</span>
+                            <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-store px-2 fa-2x"></i>&nbspProducts</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="Inventory.php" class="nav-link px-0">
-                            <span class="d-none d-sm-inline">Daily Inventory</span>
+                            <span class="d-none d-sm-inline"><i class="fa-solid fa-clipboard-list px-2 fa-2x"></i></i>&nbspDaily Inventory</span>
                         </a>
                     </li>
+                    <li class="nav-item mt-2">
+                            <a href="ProductRecord.php" class="nav-link px-0">
+                                <span class="d-none d-sm-inline">
+                                <i class="fa-solid fa-pen-to-square px-2 fa-2x"></i>&nbspProduct Records
+                                </span>
+                            </a>
+                        </li>
                 </ul>
 
                 <!-- PAYMENT SECTION -->
@@ -112,25 +164,28 @@
                 </ul>
             </div>
         </div>
-            <div class="col py-3">
+            <div class="col py-3 bg-img" >
                 <div class="container mt-3 mb-5">
-                    <div class="row text-center">
-                        <div class="col-md-3 mt-5">
+                    <div class="row text-center justify-content-between">
+                        <?php while ($row = $result->fetch_assoc()) ?>
+                        <div class="col-md-4 mt-5">
                             <div class="card p-3">
                                 <i class="fa-solid fa-user fa-6x"></i>
-                                <a href="../AddEmployee/AddnewEmployee.php"><p>EMPLOYEE</p></a>
+                                <a href="Employee.php"><p>EMPLOYEE</p></a>
+                                <h3 class="text text-white font-weight-bold"><?php echo $totalEmployees ?></h3>
                             </div>
                         </div>
-                        <div class="col-md-3 mt-5">
+                        <div class="col-md-4 mt-5">
                             <div class="card p-3">
                                 <i class="fa-solid fa-circle-user fa-6x"></i>
                                 <a href="../UserApproval/viewUsers.php"><p>USERS</p></a>
                             </div>
                         </div>
-                        <div class="col-md-3 mt-5">
+                        <div class="col-md-4 mt-5">
                             <div class="card p-3">
                                 <i class="fa-solid fa-cart-shopping fa-6x"></i>
-                                <a href=""><p>PRODUCT-SALES</p></a>
+                                <a href="Product.php"><p>PRODUCTS</p></a>
+                                <h3 class="text text-white font-weight-bold"><?php echo $totalProduct ?></h3>
                             </div>
                         </div>
                     </div>

@@ -1,3 +1,12 @@
+<?php
+include "../helpers/authenticated.php";
+
+if ($_SESSION['user_role'] !== 'admin') {
+    header("Location: ../BookingSite/HomeBooking.php");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +23,9 @@
             color: white;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+        .sidebar .nav-link, .sidebar h4 {
+        color: white !important;  
+        }
     </style>
 </head>
 <body>
@@ -28,16 +40,13 @@
             </div>
             <div class="row justify-content-end">
                 <div class="btn-group">
-                    <i class="fa-solid fa-user fa-3x"></i>
+                   
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         &nbsp; ADMIN
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <button class="dropdown-item" type="button">Settings</button>
-                        </li>
-                        <li>
-                            <button class="dropdown-item" type="button">LOG-OUT</button>
+                        <a href="../Handler_connection/Log-out.php"> <button class="dropdown-item" type="button">LOG-OUT</button></a>
                         </li>
                     </ul>
                 </div>
@@ -47,52 +56,59 @@
 
     <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark sidebar">
+    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-dark min-vh-100">
                 <!-- INTERFACE SECTION -->
                 <h4 class="lead">INTERFACE</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="home.php" class="nav-link align-middle px-0">
-                            <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                            <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-house px-2 fa-2x"></i>&nbspDashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="User-management.php" class="nav-link px-0">
-                            <span class="d-none d-sm-inline">Appointment</span>
+                    <li class="nav-item mt-2">
+                        <a href="User-management.php" class="nav-link align-middle px-0">
+                            <span class="d-none d-sm-inline"><i class="fa-solid fa-calendar-check px-2 fa-2x"></i>&nbspAppointment</span>
                         </a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown mt-2">
                         <a class="nav-link dropdown-toggle px-0 align-middle" href="#" id="attendanceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fs-4 bi-table"></i>
-                            <span class="ms-1 d-none d-sm-inline">Attendance</span>
+                            <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-clipboard-user px-2 fa-2x"></i>&nbspAttendance</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="attendanceDropdown">
                             <li><a class="dropdown-item" href="../AttendanceSheet/DailyAttendance.php">Daily Attendance</a></li>
                             <li><a class="dropdown-item" href="../AttendanceSheet/AttendanceReport.php">Attendance Report</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="Employee.php" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-table"></i>
-                            <span class="ms-1 d-none d-sm-inline">Employee</span>
+                            <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-user-tie px-2 fa-2x"></i>&nbspEmployee</span>
                         </a>
                     </li>
                 </ul>
 
                 <!-- PRODUCTS SECTION -->
-                <h4 class="lead mt-3">PRODUCTS</h4>
+                <h4 class="lead">PRODUCTS</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="Product.php" class="nav-link align-middle px-0">
-                            <span class="ms-1 d-none d-sm-inline">Products</span>
+                            <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-store px-2 fa-2x"></i>&nbspProducts</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="Inventory.php" class="nav-link px-0">
-                            <span class="d-none d-sm-inline">Daily Inventory</span>
+                            <span class="d-none d-sm-inline"><i class="fa-solid fa-clipboard-list px-2 fa-2x"></i></i>&nbspDaily Inventory</span>
                         </a>
                     </li>
+                    <li class="nav-item mt-2">
+                            <a href="ProductRecord.php" class="nav-link px-0">
+                                <span class="d-none d-sm-inline">
+                                <i class="fa-solid fa-pen-to-square px-2 fa-2x"></i>&nbspProduct Records
+                                </span>
+                            </a>
+                        </li>
                 </ul>
 
                 <!-- PAYMENT SECTION -->

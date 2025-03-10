@@ -1,6 +1,6 @@
 <?php 
 
-include '../helpers/authenticated.php'   
+include '../helpers/authenticated.php'  
 
 ?>
 

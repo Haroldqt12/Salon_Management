@@ -30,7 +30,7 @@ include '../helpers/not_authenticated.php';
                                  unset($_SESSION['errors']); 
                                 ?>
                              </div>
-<?php endif; ?>
+                    <?php endif; ?>
                                 <form class="form" action="../Handler_connection/log_handler.php" method="POST">
                                     <div class="form-outline form-white mb-4">
                                         <input type="text" id="typeUser" name="username" class="form-control form-control-lg" placeholder="Username" required />

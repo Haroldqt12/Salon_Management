@@ -18,6 +18,9 @@
         color: white;
         transition: background-color 0.3s ease, color 0.3s ease;
     }
+    .sidebar .nav-link, .sidebar h4 {
+    color: white !important;  
+    }
 </style>
 <body>
     <nav class="navbar navbar-expand-lg bg-secondary">
@@ -51,50 +54,50 @@
     
     <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark sidebar">
+    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-dark min-vh-100">
                 <!-- INTERFACE SECTION -->
                 <h4 class="lead">INTERFACE</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="../designforSalon/home.php" class="nav-link align-middle px-0">
-                            <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                        <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-house px-2 fa-2x"></i>&nbspDashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="../designforSalon/User-management.php" class="nav-link px-0">
-                            <span class="d-none d-sm-inline">User Management</span>
+                        <span class="d-none d-sm-inline"><i class="fa-solid fa-calendar-check px-2 fa-2x"></i>&nbspAppointment</span>
                         </a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown mt-2">
                         <a class="nav-link dropdown-toggle px-0 align-middle" href="#" id="attendanceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fs-4 bi-table"></i>
-                            <span class="ms-1 d-none d-sm-inline">Attendance</span>
+                            <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-clipboard-user px-2 fa-2x"></i>&nbspAttendance</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="attendanceDropdown">
                             <li><a class="dropdown-item" href="../AttendanceSheet/DailyAttendance.php">Daily Attendance</a></li>
                             <li><a class="dropdown-item" href="../AttendanceSheet/AttendanceReport.php">Attendance Report</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="../designforSalon/Employee.php" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-table"></i>
-                            <span class="ms-1 d-none d-sm-inline">Employee</span>
+                            <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-user-tie px-2 fa-2x"></i>&nbspEmployee</span>
                         </a>
                     </li>
                 </ul>
 
                 <!-- PRODUCTS SECTION -->
-                <h4 class="lead mt-3">PRODUCTS</h4>
+                <h4 class="lead">PRODUCTS</h4>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="../designforSalon/Product.php" class="nav-link align-middle px-0">
-                            <span class="ms-1 d-none d-sm-inline">Products</span>
+                        <span class="ms-1 d-none d-sm-inline"><i class="fa-solid fa-store px-2 fa-2x"></i>&nbspProducts</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mt-2">
                         <a href="../designforSalon/Inventory.php" class="nav-link px-0">
-                            <span class="d-none d-sm-inline">Daily Inventory</span>
+                        <span class="d-none d-sm-inline"><i class="fa-solid fa-clipboard-list px-2 fa-2x"></i></i>&nbspDaily Inventory</span>
                         </a>
                     </li>
                 </ul>
@@ -131,7 +134,7 @@
                             </div>
                             <form action="">
                             <div class="col py-3">
-                                <div class="row mt-2 justify-content-between">
+                                <div class="row mt-2">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="product">Product name</label>
@@ -139,21 +142,9 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
-                                            <label for="stocks">Available Stocks</label>
-                                            <input type="number" class="form-control" id="stocks" name="stocks" placeholder="Available Stocks" required>
+                                            <label for="brand">Brand</label>
+                                            <input type="text" class="form-control" id="brand" name="brand" placeholder="Brand" required>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <label for="price">Price</label>
-                                            <input type="number" class="form-control" id="price" name="price" placeholder="Price" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-4">
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="brand">Brand</label>
-                                                <input type="text" class="form-control" id="brand" name="brand" placeholder="Brand" required>
-                                            </div>
-                                        </div>                                   
                                     </div>
                                     </div>
                                         <div class="row mt-5 justify-content-end">
